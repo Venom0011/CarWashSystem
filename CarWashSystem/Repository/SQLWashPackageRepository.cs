@@ -1,4 +1,5 @@
 ﻿using CarWashSystem.Data;
+using CarWashSystem.Interfaces;
 using CarWashSystem.Models;
 using Microsoft.EntityFrameworkCore;
 

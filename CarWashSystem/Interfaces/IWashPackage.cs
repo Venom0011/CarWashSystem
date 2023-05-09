@@ -1,6 +1,6 @@
 ﻿using CarWashSystem.Models;
 
-namespace CarWashSystem.Repository
+namespace CarWashSystem.Interfaces
 {
     public interface IWashPackage
     {

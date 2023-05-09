@@ -1,6 +1,6 @@
 ﻿using CarWashSystem.DTO;
+using CarWashSystem.Interfaces;
 using CarWashSystem.Models;
-using CarWashSystem.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
