@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.Text.Json.Serialization;
 
-namespace CarWashSystem.Models
+namespace CarWashSystem.DTO
 {
-    public class Payment
+    public class CreatePaymentdto
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Card Holder name is required")]
         [DisplayName("Card Holder Name")]
         public string CardHolderName { get; set; }
@@ -21,15 +17,11 @@ namespace CarWashSystem.Models
         [DisplayName("Card Number")]
         public string CardNumber { get; set; }
 
-     
         public string PaymentStatus { get; set; }
+
+        public int UserId { get; set; }
         public double TotalAmount { get; set; }
 
-        [JsonIgnore]
-        public User User { set; get; }
         
-        public int UserId { set; get; }
-        
-       
     }
 }

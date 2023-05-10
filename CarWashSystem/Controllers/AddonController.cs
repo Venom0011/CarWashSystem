@@ -71,7 +71,8 @@ namespace CarWashSystem.Controllers
             {
                 Name = createaddondto.Name,
                 Description = createaddondto.Description,
-                Price = createaddondto.Price
+                Price = createaddondto.Price,
+                WashPackageId=createaddondto.WashPackageId
             };
             addon = await addonrepository.CreateAddOn(addon);
             return Ok(addon);

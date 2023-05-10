@@ -18,6 +18,7 @@ builder.Services.AddDbContext<OnDemandDbContext>(option => option.UseSqlServer(b
 builder.Services.AddScoped<IUser,SQLUserRepository>();
 builder.Services.AddScoped<IAddon, SQLAddonRepository>();
 builder.Services.AddScoped<IWashPackage, SQLWashPackageRepository>();
+builder.Services.AddScoped<IPayment, SQLPaymentRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -17,6 +17,7 @@ namespace CarWashSystem.Controllers
             this.washpackagerepository = washpackagerepository;
         }
 
+        //Get all Washpackage
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AddOn>>> GetWashPackage()
         {
@@ -38,6 +39,7 @@ namespace CarWashSystem.Controllers
             return Ok(washpackagedto);
         }
 
+        // Get WashPackage by Id
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<AddOn>>> GetWashPackageById(int id)
         {
@@ -59,9 +61,9 @@ namespace CarWashSystem.Controllers
             return Ok(washpackagedto);
         }
 
-
+        //Add Wash Package
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<AddOn>>> PostWashPackage(CreateWashPackage createWashPackage)
+        public async Task<ActionResult<IEnumerable<AddOn>>> PostWashPackage(CreateWashPackagedto createWashPackage)
         {
 
             var washpackage = new WashPackage()
@@ -74,14 +76,15 @@ namespace CarWashSystem.Controllers
             return Ok(washpackage);
         }
 
+        //Update Wash Package
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateUser(int id, CreateAddondto addonUpdatedto)
+        public async Task<ActionResult> UpdateUser(int id, CreateWashPackagedto createWashPackagedto)
         {
             var washpackage = new WashPackage()
             {
-                Name = addonUpdatedto.Name,
-                Description = addonUpdatedto.Description,
-                Price = addonUpdatedto.Price,
+                Name = createWashPackagedto.Name,
+                Description = createWashPackagedto.Description,
+                Price = createWashPackagedto.Price,
 
             };
 
@@ -93,15 +96,16 @@ namespace CarWashSystem.Controllers
             }
             else
             {
-                washpackage.Name = addonUpdatedto.Name;
-                washpackage.Description = addonUpdatedto.Description;
-                washpackage.Price = addonUpdatedto.Price;
+                washpackage.Name = createWashPackagedto.Name;
+                washpackage.Description = createWashPackagedto.Description;
+                washpackage.Price = createWashPackagedto.Price;
 
             }
 
             return NoContent();
         }
 
+        //Delete Wash Package
         [HttpDelete("{id}")]
 
         public async Task<ActionResult> DeleteUser(int id)

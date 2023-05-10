@@ -12,22 +12,20 @@ namespace CarWashSystem.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly OnDemandDbContext _context;
+       
         private readonly IUser userrepository;
 
-        public UserController(OnDemandDbContext context,IUser userrepository)
+        public UserController(IUser userrepository)
         {
-            _context = context;
             this.userrepository = userrepository;
         }
+
+        //Get all user
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
             var users= await userrepository.GetUsers();
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
+           
             var userdto = new List<Userdto>();
             foreach (var user in users)
             {
@@ -46,13 +44,11 @@ namespace CarWashSystem.Controllers
             return Ok(userdto); 
         }
 
+        //Get User by Id
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<User>>> GetUserById(int id)
         {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
+            
 
             var user= await userrepository.GetUserById(id);
             if(user == null)
@@ -72,14 +68,11 @@ namespace CarWashSystem.Controllers
             return Ok(userdto);
         }
 
-        
+        //Add User
         [HttpPost]
         public async Task<ActionResult<IEnumerable<User>>> PostUser(CreateUserdto createuser)
         {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
+            
             var user = new User() {
                 FullName = createuser.FullName,
                 Email = createuser.Email,
@@ -91,6 +84,7 @@ namespace CarWashSystem.Controllers
             return Ok(user);
         }
 
+        //Update User
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateUser(int id,UserUpdatedto userUpdatedto)
         {
@@ -101,10 +95,7 @@ namespace CarWashSystem.Controllers
                 Password = userUpdatedto.Password,
                 Address = userUpdatedto.Address,
             };
-            if(_context.Users == null)
-            {
-                return NotFound();
-            }
+           
             user = await userrepository.UpdateUser(id,user);
             
             if (user == null)
@@ -119,25 +110,16 @@ namespace CarWashSystem.Controllers
                 user.Address = userUpdatedto.Address;
             }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+          
             return NoContent();
         }
 
+        //Delete User
         [HttpDelete("{id}")]
 
         public async Task<ActionResult> DeleteUser(int id)
         {
-            if(_context.Users == null)
-            {
-                return NotFound();
-            }
+           
             var user = await userrepository.DeleteUser(id);
             if (user == null)
             {

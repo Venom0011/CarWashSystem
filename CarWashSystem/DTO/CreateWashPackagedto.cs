@@ -1,6 +1,6 @@
 ﻿namespace CarWashSystem.DTO
 {
-    public class CreateWashPackage
+    public class CreateWashPackagedto
     {
         public string Name { get; set; }
         public string Description { get; set; }
