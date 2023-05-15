@@ -8,5 +8,7 @@ namespace CarWashSystem.Interfaces
         Task<Payment> GetPaymentById(int id);
         Task<Payment> CreatePayment(Payment payment);
         Task<Payment> DeletePayment(int id);
+
+        Task<List<Payment>> GetPaymentwithUser();
     }
 }

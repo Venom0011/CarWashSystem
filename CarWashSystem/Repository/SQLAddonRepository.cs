@@ -37,6 +37,11 @@ namespace CarWashSystem.Repository
             return await context.AddOns.ToListAsync();
         }
 
+        public async Task<List<AddOn>> GetAddonwithPackage()
+        {
+            return await context.AddOns.Include(x=>x.WashPackage).ToListAsync();
+        }
+
         public async Task<AddOn> GetAddOnById(int id)
         {
              return await context.AddOns.FirstOrDefaultAsync(x => x.Id == id);
@@ -57,5 +62,7 @@ namespace CarWashSystem.Repository
             await context.SaveChangesAsync();
             return existingdata;
         }
+
+       
     }
 }

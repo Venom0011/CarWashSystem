@@ -25,7 +25,7 @@ namespace CarWashSystem.Models
         public string PaymentStatus { get; set; }
         public double TotalAmount { get; set; }
 
-        [JsonIgnore]
+  
         public User User { set; get; }
         
         public int UserId { set; get; }

@@ -11,7 +11,7 @@ namespace CarWashSystem.Models
         public string Description { get; set; }
         public double Price { set; get; }
 
-        [JsonIgnore]
+       
         public WashPackage WashPackage { get; set; }
         public int WashPackageId { set; get; }
         

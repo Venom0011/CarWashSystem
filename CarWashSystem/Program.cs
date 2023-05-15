@@ -19,6 +19,8 @@ builder.Services.AddScoped<IUser,SQLUserRepository>();
 builder.Services.AddScoped<IAddon, SQLAddonRepository>();
 builder.Services.AddScoped<IWashPackage, SQLWashPackageRepository>();
 builder.Services.AddScoped<IPayment, SQLPaymentRepository>();
+builder.Services.AddScoped<IOrder,SQLOrderRepository>();
+builder.Services.AddScoped<ICar, SQLCarRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

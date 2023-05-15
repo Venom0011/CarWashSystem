@@ -9,5 +9,7 @@ namespace CarWashSystem.Interfaces
         Task<AddOn> CreateAddOn(AddOn addon);
         Task<AddOn> UpdateAddOn(int id, AddOn addon);
         Task<AddOn> DeleteAddOn(int id);
+
+        Task<List<AddOn>> GetAddonwithPackage();
     }
 }

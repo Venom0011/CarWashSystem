@@ -20,14 +20,17 @@ namespace CarWashSystem.Models
         
 
 
-
-        [JsonIgnore]
+        public User User { get; set; }
+        public int UserId { get; set; }
+       
         public WashPackage WashPackage { set; get; }
+        public int WashPackageId { get; set; }
 
-        [JsonIgnore]
+        
         public Payment Payment { set; get; }
-
-      
+        public int PaymentId { get; set; }
+        public Car Car {  get; set; }
+        public int CarId { get; set; }
      
     }
 }

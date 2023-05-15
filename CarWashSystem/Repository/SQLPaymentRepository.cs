@@ -40,5 +40,11 @@ namespace CarWashSystem.Repository
             var payment = await context.Payments.FirstOrDefaultAsync(x=>x.Id==id);
             return payment;
         }
+
+        public async Task<List<Payment>> GetPaymentwithUser()
+        {
+            var payment = await context.Payments.Include(x => x.User).ToListAsync();
+            return payment;
+        }
     }
 }

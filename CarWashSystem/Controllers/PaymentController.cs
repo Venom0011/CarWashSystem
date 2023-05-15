@@ -38,14 +38,52 @@ namespace CarWashSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Payment>>> GetAll()
         {
-            return await paymentrepo.GetPayment();
+            var payments = await paymentrepo.GetPayment();
+            var paymentdto = new List<Paymentdto>();
+            foreach (var payment in payments)
+            {
+
+                paymentdto.Add(new Paymentdto()
+                {
+                    Id = payment.Id,
+                    CardHolderName = payment.CardHolderName,
+                    CardType = payment.CardType,
+                    CardNumber = payment.CardNumber,
+                    PaymentStatus = payment.PaymentStatus,
+                    TotalAmount=payment.TotalAmount,
+                    UserId=payment.UserId
+                });
+            }
+
+            return Ok(paymentdto);
+        }
+
+        [HttpGet("GetPayemntwithUser")]
+        public async Task<ActionResult<IEnumerable<Payment>>> GetPayemntwithUser()
+        {
+            return await paymentrepo.GetPaymentwithUser();
         }
 
         // Get payment by Id
         [HttpGet("{id}")]
         public async Task<ActionResult<Payment>> GetById(int id)
         {
-            return await paymentrepo.GetPaymentById(id);
+            var payment= await paymentrepo.GetPaymentById(id);
+            if(payment==null)
+            {
+                return NotFound();
+            }
+            var paymentdto = new Paymentdto()
+            {
+                Id = payment.Id,
+                CardHolderName = payment.CardHolderName,
+                CardType=payment.CardType, 
+                CardNumber=payment.CardNumber,
+                PaymentStatus = payment.PaymentStatus,
+                TotalAmount=payment.TotalAmount,
+                UserId = payment.UserId
+            };
+            return Ok(payment);
         }
 
         //Cancel Payment

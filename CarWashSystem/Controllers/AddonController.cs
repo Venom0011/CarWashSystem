@@ -34,13 +34,19 @@ namespace CarWashSystem.Controllers
                     Id = addon.Id,
                     Name = addon.Name,
                     Description = addon.Description,
-                    Price = addon.Price
+                    Price = addon.Price,
+                    WashPackageId=addon.WashPackageId
                 });
             }
 
             return Ok(addondto);
         }
 
+        [HttpGet("GetAddonwithPackage")]
+        public async Task<ActionResult<IEnumerable<AddOn>>> GetAddonwithpackage()
+        {
+            return await addonrepository.GetAddonwithPackage();
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<AddOn>>> GetAddonById(int id)
         {
@@ -56,7 +62,8 @@ namespace CarWashSystem.Controllers
                 Id = addon.Id,
                 Name = addon.Name,
                 Description = addon.Description,
-                Price = addon.Price
+                Price = addon.Price,
+                WashPackageId=addon.WashPackageId
             };
 
             return Ok(addondto);

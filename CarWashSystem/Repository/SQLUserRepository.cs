@@ -45,7 +45,6 @@ namespace CarWashSystem.Repository
             existingdata.Email = user.Email;
             existingdata.Password = user.Password;
             existingdata.Address = user.Password;
-
             await context.SaveChangesAsync();
             return existingdata;
         }
