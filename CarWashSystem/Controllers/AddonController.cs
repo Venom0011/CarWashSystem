@@ -82,7 +82,7 @@ namespace CarWashSystem.Controllers
                 WashPackageId=createaddondto.WashPackageId
             };
             addon = await addonrepository.CreateAddOn(addon);
-            return Ok(addon);
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -125,7 +125,7 @@ namespace CarWashSystem.Controllers
             }
             // no asyn method for remove so no await for remove
 
-            return Ok(addon);
+            return Ok();
         }
     }
 }

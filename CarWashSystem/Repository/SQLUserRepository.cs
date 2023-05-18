@@ -33,21 +33,7 @@ namespace CarWashSystem.Repository
 
         }
 
-        public async Task<User> UpdateUser(int id, User user)
-        {
-            var existingdata = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
-            if (user == null)
-            {
-                return null;
-            }
-
-            existingdata.FullName = user.FullName;
-            existingdata.Email = user.Email;
-            existingdata.Password = user.Password;
-            existingdata.Address = user.Password;
-            await context.SaveChangesAsync();
-            return existingdata;
-        }
+      
         public async Task<User> DeleteUser(int id)
         {
             var user=await context.Users.FirstOrDefaultAsync(x => x.Id == id);

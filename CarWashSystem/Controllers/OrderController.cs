@@ -87,7 +87,7 @@ namespace CarWashSystem.Controllers
                 CarId = createOrderdto.CarId
             };
             order = await orderrepo.AddOrder(order);
-            return Ok(order);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -98,7 +98,7 @@ namespace CarWashSystem.Controllers
             {
                 return NotFound();
             }
-            return Ok(order);
+            return Ok();
         }
     }
 }

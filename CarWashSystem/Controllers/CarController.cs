@@ -77,7 +77,7 @@ namespace CarWashSystem.Controllers
                 
             };
             car = await carrepo.AddCar(car);
-            return Ok(car);
+            return Ok();
         }
 
         //Update Car
@@ -118,7 +118,7 @@ namespace CarWashSystem.Controllers
             {
                 return NotFound();
             }
-            return Ok(car);
+            return Ok();
         }
     }
 }

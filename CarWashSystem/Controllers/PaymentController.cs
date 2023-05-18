@@ -31,7 +31,7 @@ namespace CarWashSystem.Controllers
                 TotalAmount = createPaymentdto.TotalAmount
             };
             await paymentrepo.CreatePayment(payment);
-            return Ok(payment);
+            return Ok();
         }
 
         // Get All Payments
@@ -92,7 +92,7 @@ namespace CarWashSystem.Controllers
         public async Task<ActionResult<Payment>> Delete(int id)
         {
             var payment=await paymentrepo.DeletePayment(id);
-            return Ok(payment);
+            return Ok();
         }
 
     }

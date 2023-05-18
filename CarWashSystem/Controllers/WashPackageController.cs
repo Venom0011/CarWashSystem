@@ -73,7 +73,7 @@ namespace CarWashSystem.Controllers
                 Price = createWashPackage.Price
             };
             washpackage = await washpackagerepository.CreateWashPackage(washpackage);
-            return Ok(washpackage);
+            return Ok();
         }
 
         //Update Wash Package
@@ -118,7 +118,7 @@ namespace CarWashSystem.Controllers
             }
             // no asyn method for remove so no await for remove
 
-            return Ok(washpackage);
+            return Ok();
         }
     }
 }

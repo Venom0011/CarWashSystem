@@ -16,7 +16,7 @@ namespace CarWashSystem.Data
         public DbSet<WashPackage> WashPackages { set; get; }
         public DbSet<User> Users { set; get; }
 
-      
+        public DbSet<login> logins { set; get; }
        
 
             
