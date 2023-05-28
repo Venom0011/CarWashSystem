@@ -2,6 +2,7 @@
 using CarWashSystem.DTO;
 using CarWashSystem.Interfaces;
 using CarWashSystem.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,22 @@ using System.Text;
 
 namespace CarWashSystem.Controllers
 {
+    public class Response
+    {
+        public string token { get; set; }
+        public User payload { get; set; }
+        public Response() { }
+    }
+
+    public class Token
+    {
+        public string token { get; set; } = string.Empty;
+    }
+
+
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class AuthController : ControllerBase
     {
         private readonly OnDemandDbContext context;
@@ -31,6 +46,11 @@ namespace CarWashSystem.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(registerdto request)
         {
+            var Data=context.Users.Where(x=>x.Email==request.Email);
+            if(Data.Count() > 0 )
+            {
+                return BadRequest("Email already taken");
+            }
             User user = new User();
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             user.FullName = request.FullName;
@@ -60,7 +80,7 @@ namespace CarWashSystem.Controllers
                 return BadRequest("Password is not correct");
             }
             string token = CreateToken(user);
-            return Ok(token);
+            return Ok(new Response { token = token, payload = user,  });
         }
 
         private string CreateToken(User login)

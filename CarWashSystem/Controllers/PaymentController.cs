@@ -1,6 +1,7 @@
 ﻿using CarWashSystem.DTO;
 using CarWashSystem.Interfaces;
 using CarWashSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ namespace CarWashSystem.Controllers
         }
 
         // Get All Payments
-        [HttpGet]
+        [HttpGet,Authorize(Roles ="Admin")]
         public async Task<ActionResult<IEnumerable<Payment>>> GetAll()
         {
             var payments = await paymentrepo.GetPayment();

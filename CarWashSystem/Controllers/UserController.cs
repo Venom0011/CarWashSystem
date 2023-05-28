@@ -22,7 +22,7 @@ namespace CarWashSystem.Controllers
         }
 
         //Get all user
-        [HttpGet,Authorize(Roles ="Admin")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
             var users= await userrepository.GetUsers();
@@ -32,8 +32,8 @@ namespace CarWashSystem.Controllers
             {
                 
                 userdto.Add(new Userdto()
-                {
-                    Id = user.Id,
+                { 
+                    Id=user.Id,
                     FullName = user.FullName,
                     Email = user.Email,
                     Address= user.Address,

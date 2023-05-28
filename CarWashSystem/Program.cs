@@ -28,6 +28,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
         };
     });
 
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy(name: "AllowOrigin", builder =>
+        {
+            builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+        });
+    });
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -59,6 +67,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
 
 app.UseAuthentication();
 
