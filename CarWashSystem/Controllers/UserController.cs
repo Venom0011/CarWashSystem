@@ -23,9 +23,9 @@ namespace CarWashSystem.Controllers
 
         //Get all user
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<User>>> GetUser([FromQuery] string? fiteredQuery, [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber=1,int pageSize=1000)
         {
-            var users= await userrepository.GetUsers();
+            var users= await userrepository.GetUsers(fiteredQuery,sortBy,isAscending ?? true,pageNumber,pageSize);
            
             var userdto = new List<Userdto>();
             foreach (var user in users)

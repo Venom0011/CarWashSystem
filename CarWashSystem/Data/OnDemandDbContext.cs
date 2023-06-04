@@ -18,7 +18,6 @@ namespace CarWashSystem.Data
 
         public DbSet<login> logins { set; get; }
        
-
             
 
     }

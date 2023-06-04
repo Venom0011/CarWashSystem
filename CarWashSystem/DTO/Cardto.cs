@@ -4,13 +4,17 @@ namespace CarWashSystem.DTO
 {
     public class Cardto
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
+
+        [Required]
+        public string FileName{ get; set;}
+        
+        public long FileSizeInBytes { get; set; }
+        
         public string CarType { get; set; }
 
         public string CarNumber { get; set; }
-
-        public string? CarImg { get; set; }
 
         public int UserId { get; set; }
     }

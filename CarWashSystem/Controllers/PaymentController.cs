@@ -59,7 +59,7 @@ namespace CarWashSystem.Controllers
             return Ok(paymentdto);
         }
 
-        [HttpGet("GetPayemntwithUser")]
+        [HttpGet("GetPaymentwithUser"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPayemntwithUser()
         {
             return await paymentrepo.GetPaymentwithUser();

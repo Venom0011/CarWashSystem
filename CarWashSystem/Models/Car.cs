@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarWashSystem.Models
 {
@@ -18,16 +19,24 @@ namespace CarWashSystem.Models
         [DisplayName("Car Model")]
         public string CarNumber { get; set; }
 
-        [DisplayName("Car Image")]
-        public string? CarImg { get; set; }
+        [NotMapped]
+        public IFormFile File { get; set; }
 
-        
+        public string FileName { get; set; }
+        public string FileExtension { get; set; }
+        public long FileSizeInBytes { get; set; }
+        public string FilePath { get; set; }
+
         public User User { get; set; }
 
         public int UserId { get; set; }
+
         
         [JsonIgnore]
         public IEnumerable<Order> order { get; set; }
+
+
+
 
      
     }

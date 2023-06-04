@@ -1,4 +1,5 @@
-﻿using CarWashSystem.DTO;
+﻿using Azure.Core;
+using CarWashSystem.DTO;
 using CarWashSystem.Interfaces;
 using CarWashSystem.Models;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +31,8 @@ namespace CarWashSystem.Controllers
                     Id=car.Id,
                     CarType = car.CarType,
                     CarNumber = car.CarNumber,
-                    CarImg = car.CarImg,
+                    
+                    FileName = car.FileName,
                     UserId = car.UserId
                 });
             }
@@ -57,7 +59,7 @@ namespace CarWashSystem.Controllers
                 Id = car.Id,
                 CarType = car.CarType,
                 CarNumber = car.CarNumber,
-                CarImg = car.CarImg,
+                FileName = car.FileName,
                 UserId = car.UserId
             };
             return Ok(cardto);
@@ -65,19 +67,22 @@ namespace CarWashSystem.Controllers
 
         //Add User
         [HttpPost]
-        public async Task<ActionResult<Car>> PostCar(CreateCardto createCardto)
+        public async Task<ActionResult<Car>> PostCar([FromForm] CreateCardto createCardto)
         {
-
+            ValidateFileUpload(createCardto);
             var car = new Car()
             {
                 CarType = createCardto.CarType,
                 CarNumber = createCardto.CarNumber,
-                CarImg = createCardto.CarImg,
-                UserId=createCardto.UserId
+                File = createCardto.File,
+                FileExtension = Path.GetExtension(createCardto.File.FileName),
+                FileSizeInBytes=createCardto.File.Length,
+                FileName = createCardto.FileName,
+                UserId =createCardto.UserId
                 
             };
             car = await carrepo.AddCar(car);
-            return Ok();
+            return Ok(car);
         }
 
         //Update Car
@@ -88,7 +93,7 @@ namespace CarWashSystem.Controllers
             {
                 CarType = createCardto.CarType,
                 CarNumber = createCardto.CarNumber,
-                CarImg = createCardto.CarImg,
+                //CarImg = createCardto.CarImg,
                 UserId = createCardto.UserId
             };
 
@@ -102,7 +107,7 @@ namespace CarWashSystem.Controllers
             {
                 car.CarType = createCardto.CarType;
                 car.CarNumber = createCardto.CarNumber;
-                car.CarImg = createCardto.CarImg;
+                //car.CarImg = createCardto.CarImg;
             }
 
 
@@ -119,6 +124,21 @@ namespace CarWashSystem.Controllers
                 return NotFound();
             }
             return Ok();
+        }
+
+        private void ValidateFileUpload(CreateCardto request)
+        {
+            var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png" };
+
+            if (!allowedExtensions.Contains(Path.GetExtension(request.File.FileName)))
+            {
+                ModelState.AddModelError("file", "Unsupported file extension");
+            }
+
+            if (request.File.Length > 10485760)
+            {
+                ModelState.AddModelError("file", "File size more than 10MB, please upload a smaller size file.");
+            }
         }
     }
 }

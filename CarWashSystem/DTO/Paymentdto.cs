@@ -22,9 +22,6 @@ namespace CarWashSystem.DTO
 
         public double TotalAmount { get; set; }
 
-
-  
-
         public int UserId { set; get; }
 
     }

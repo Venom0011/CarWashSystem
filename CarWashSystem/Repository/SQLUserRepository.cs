@@ -23,9 +23,28 @@ namespace CarWashSystem.Repository
 
 
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<User>> GetUsers(string? fiteredQuery, string? sortBy = null, 
+            bool isAscending = true, int pageNumber = 1, int pageSize = 1000)
         {
-            return await context.Users.ToListAsync();
+            var user = context.Users.AsQueryable();
+            //filtering
+
+            if(string.IsNullOrWhiteSpace(fiteredQuery)==false)
+            {
+                user = user.Where(x => x.Role.Contains(fiteredQuery));
+            }
+
+            //sorting
+            if(string.IsNullOrWhiteSpace(sortBy) == false) 
+            {
+                user = isAscending ? user.OrderBy(x => x.FullName) : user.OrderByDescending(x=>x.FullName);
+            }
+
+            //pagination
+            var skipResult = (pageNumber - 1) * pageSize;
+
+            return  await user.Skip(skipResult).Take(pageSize).ToListAsync();
+            //return await context.Users.ToListAsync();
         }
         public async Task<User> GetUserById(int id)
         {
